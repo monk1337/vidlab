@@ -1,0 +1,2 @@
+# vidlab
+video classification package
