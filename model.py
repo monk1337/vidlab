@@ -15,7 +15,7 @@ MAX_SEQ_LENGTH = 20
 NUM_FEATURES = 1024
 IMG_SIZE = 128
 
-EPOCHS = 5
+EPOCHS = 15
 
 
 class PositionalEmbedding(layers.Layer):
@@ -87,7 +87,7 @@ def get_compiled_model(label_processor):
     return model
 
 
-def run_experiment(train_data, train_labels, test_data, test_labels, label_processor):
+def run_experiment(train_data, train_labels, test_data, test_labels, label_processor, epoch):
     filepath = "/tmp/video_classifier"
     checkpoint = keras.callbacks.ModelCheckpoint(
         filepath, save_weights_only=True, save_best_only=True, verbose=1
@@ -98,7 +98,7 @@ def run_experiment(train_data, train_labels, test_data, test_labels, label_proce
         train_data,
         train_labels,
         validation_split=0.15,
-        epochs=EPOCHS,
+        epochs=epoch,
         callbacks=[checkpoint],
     )
 
