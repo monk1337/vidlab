@@ -1,6 +1,6 @@
 # vidlab
 Video frames classification using transformer model
-
+Put all videos in all_data folder
 
 ```python
 from features import get_features
