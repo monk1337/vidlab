@@ -1,4 +1,3 @@
-
 from tensorflow_docs.vis import embed
 from tensorflow.keras import layers
 from tensorflow import keras
@@ -7,6 +6,7 @@ import matplotlib.pyplot as plt
 import shutil
 
 import tensorflow as tf
+from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import imageio
@@ -130,7 +130,7 @@ def get_features(data_path, test_size = 0.3):
         )
 
         # For each video.
-        for idx, path in enumerate(video_paths):
+        for idx, path in tqdm(enumerate(video_paths)):
             # Gather all its frames and add a batch dimension.
             frames = load_video(os.path.join(root_dir, path))
 
@@ -169,5 +169,8 @@ def get_features(data_path, test_size = 0.3):
 
     print(f"Frame features in train set: {train_data.shape}")
     print(f"Frame masks in train set: {test_data.shape}")
+
+    np.savez('final_features.npz', train_data= train_data, train_labels= train_labels, 
+    test_data = test_data, test_labels = test_labels)
 
     return train_data, train_labels, test_data, test_labels, label_processor
